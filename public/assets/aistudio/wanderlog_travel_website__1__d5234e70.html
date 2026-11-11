@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wanderlog — My Travel Journal</title>
+<style>
+:root{--ink:#172b2b;--muted:#667777;--cream:#f6f5ef;--green:#245b50;--mint:#dcebe3;--orange:#e88b58;--white:#fff}
+*{box-sizing:border-box} body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;background:#fff}
+.logo{font-weight:850;font-size:1.3rem;letter-spacing:-.04em}.logo span{color:var(--orange)}
+nav{display:flex;gap:22px;color:var(--muted);font-size:.92rem}nav a{color:inherit;text-decoration:none}
+.hero{min-height:390px;padding:70px 7%;display:flex;align-items:center;color:white;background:linear-gradient(90deg,rgba(12,38,35,.83),rgba(12,38,35,.2)),url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-inner{max-width:650px}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;font-weight:700;color:#d6e8de}
+h1{font-size:clamp(2.7rem,6vw,5rem);line-height:1.02;letter-spacing:-.06em;margin:14px 0}.hero p{font-size:1.05rem;line-height:1.7;max-width:520px;color:#e7efea}
+main{max-width:1160px;margin:auto;padding:54px 24px 80px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:24px}
+h2{font-size:2rem;letter-spacing:-.045em;margin:0 0 8px}.sub{color:var(--muted);margin:0}
+.panel{background:white;border:1px solid #e6e8e1;border-radius:22px;padding:25px;margin-bottom:48px;box-shadow:0 12px 35px #1b39300a}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+label{display:block;font-size:.85rem;font-weight:700;margin-bottom:7px}
+input,textarea{width:100%;border:1px solid #d9e0d9;border-radius:12px;padding:12px 13px;font:inherit;background:#fcfdfa;color:var(--ink)}
+textarea{min-height:95px;resize:vertical}.wide{grid-column:1/-1}
+.upload{border:1.5px dashed #9db7a8;border-radius:14px;padding:18px;background:#f7faf7}
+.upload input{border:0;padding:8px 0;background:transparent}
+.btn{border:0;border-radius:999px;padding:12px 19px;background:var(--green);color:white;font-weight:750;cursor:pointer;font:inherit}
+.btn:hover{filter:brightness(1.08)}.btn.secondary{background:var(--mint);color:var(--green)}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
+#status{font-size:.88rem;color:var(--green)}
+.trips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.card{background:#fff;border-radius:18px;overflow:hidden;border:1px solid #e6e8e1;box-shadow:0 8px 28px #1b39300a}
+.media-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;background:#e8eee8;min-height:130px}
+.media-grid img,.media-grid video{width:100%;height:150px;object-fit:cover;background:#dce5df}
+.media-grid .single{grid-column:1/-1;height:220px}
+.media-placeholder{grid-column:1/-1;height:170px;display:grid;place-items:center;color:#6b8175;font-size:2.4rem}
+.card-body{padding:17px}.place{font-size:1.25rem;font-weight:800;letter-spacing:-.03em}.date{font-size:.8rem;color:#788782;margin:5px 0 11px}.story{font-size:.92rem;line-height:1.55;color:#52635d;white-space:pre-wrap}
+.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:15px}.count{font-size:.78rem;color:#718078}
+.delete{border:0;background:#fff0eb;color:#a64c32;border-radius:20px;padding:7px 11px;cursor:pointer;font-weight:700}
+.empty{grid-column:1/-1;padding:45px 20px;text-align:center;border:1px dashed #cbd7ce;border-radius:18px;color:var(--muted)}
+footer{text-align:center;padding:28px;color:#74827c;font-size:.85rem}
+@media(max-width:850px){.trips{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){header{padding:18px 5%}nav{gap:12px;font-size:.8rem}.hero{padding:55px 6%;min-height:340px}.form-grid,.trips{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}main{padding:38px 16px 60px}.panel{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">wander<span>log.</span></div>
+  <nav><a href="#add-trip">Add a trip</a><a href="#my-trips">My memories</a></nav>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">A little journal for big adventures</div>
+    <h1>Collect moments.<br>Keep wandering.</h1>
+    <p>Your personal travel corner. Save the places you visit, add your favourite photos and videos, and keep every adventure in one place.</p>
+    <a href="#add-trip"><button class="btn secondary" type="button">Add your first trip ↗</button></a>
+  </div>
+</section>
+<main>
+  <section id="add-trip">
+    <div class="section-head"><div><h2>Add a new memory</h2><p class="sub">Every journey deserves a place in your journal.</p></div></div>
+    <form class="panel" id="tripForm">
+      <div class="form-grid">
+        <div><label for="place">Place you visited *</label><input id="place" required maxlength="70" placeholder="e.g. Manali, India"></div>
+        <div><label for="date">Travel date</label><input id="date" type="date"></div>
+        <div class="wide"><label for="story">Your travel story</label><textarea id="story" maxlength="1200" placeholder="What did you see? What was your favourite moment?"></textarea></div>
+        <div class="wide upload"><label for="media">Upload photos and videos</label><input id="media" type="file" accept="image/*,video/*" multiple><div class="sub">You can select multiple images and videos. Files are saved in this browser on this device.</div></div>
+      </div>
+      <div class="actions"><button class="btn" type="submit">Save travel memory +</button><span id="status" role="status"></span></div>
+    </form>
+  </section>
+  <section id="my-trips">
+    <div class="section-head"><div><h2>My travel memories</h2><p class="sub">A growing collection of places and moments.</p></div><span id="tripCount" class="sub">0 trips</span></div>
+    <div id="trips" class="trips"><div class="empty">Your journal is waiting for its first adventure ✈️<br>Add a trip above to see it here.</div></div>
+  </section>
+</main>
+<footer>Made for your memories · Keep exploring 🌿</footer>
+<script>
+const DB_NAME = "wanderlog_memories";
+const STORE = "trips";
+let db;
+
+function openDB(){
+  return new Promise((resolve,reject)=>{
+    const request=indexedDB.open(DB_NAME,1);
+    request.onupgradeneeded=()=>request.result.createObjectStore(STORE,{keyPath:"id",autoIncrement:true});
+    request.onsuccess=()=>resolve(request.result);
+    request.onerror=()=>reject(request.error);
+  });
+}
+function allTrips(){
+  return new Promise((resolve,reject)=>{
+    const request=db.transaction(STORE,"readonly").objectStore(STORE).getAll();
+    request.onsuccess=()=>resolve(request.result.sort((a,b)=>b.created-a.created));
+    request.onerror=()=>reject(request.error);
+  });
+}
+function saveTrip(trip){
+  return new Promise((resolve,reject)=>{
+    const request=db.transaction(STORE,"readwrite").objectStore(STORE).add(trip);
+    request.onsuccess=()=>resolve();request.onerror=()=>reject(request.error);
+  });
+}
+function removeTrip(id){
+  return new Promise((resolve,reject)=>{
+    const request=db.transaction(STORE,"readwrite").objectStore(STORE).delete(id);
+    request.onsuccess=()=>resolve();request.onerror=()=>reject(request.error);
+  });
+}
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function formatDate(value){
+  if(!value)return "Date not added";
+  return new Date(value+"T12:00:00").toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"});
+}
+async function render(){
+  const trips=await allTrips();
+  document.getElementById("tripCount").textContent=trips.length+" "+(trips.length===1?"trip":"trips");
+  const root=document.getElementById("trips");
+  if(!trips.length){root.innerHTML='<div class="empty">Your journal is waiting for its first adventure ✈️<br>Add a trip above to see it here.</div>';return;}
+  root.innerHTML="";
+  for(const trip of trips){
+    const card=document.createElement("article");card.className="card";
+    const media=document.createElement("div");media.className="media-grid";
+    if(trip.files.length){
+      trip.files.slice(0,4).forEach((file,index)=>{
+        const url=URL.createObjectURL(file.blob);
+        let el;
+        if(file.type.startsWith("video/")){el=document.createElement("video");el.controls=true;el.preload="metadata";}
+        else{el=document.createElement("img");el.alt="Travel photo from "+trip.place;el.loading="lazy";}
+        el.src=url;if(trip.files.length===1)el.classList.add("single");media.appendChild(el);
+      });
+    }else{const placeholder=document.createElement("div");placeholder.className="media-placeholder";placeholder.textContent="✈";media.appendChild(placeholder);}
+    const body=document.createElement("div");body.className="card-body";
+    body.innerHTML=`<div class="place">${escapeHTML(trip.place)}</div><div class="date">${escapeHTML(formatDate(trip.date))}</div><div class="story">${escapeHTML(trip.story||"A new adventure added to the journal.")}</div><div class="card-foot"><span class="count">${trip.files.length} media file${trip.files.length===1?"":"s"}</span><button class="delete" type="button">Delete</button></div>`;
+    body.querySelector(".delete").addEventListener("click",async()=>{if(confirm("Delete this travel memory?")){await removeTrip(trip.id);render();}});
+    card.append(media,body);root.appendChild(card);
+  }
+}
+document.getElementById("tripForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  const place=document.getElementById("place").value.trim();
+  const files=[...document.getElementById("media").files];
+  const status=document.getElementById("status");
+  if(!place)return;
+  try{
+    status.textContent="Saving…";
+    await saveTrip({place,date:document.getElementById("date").value,story:document.getElementById("story").value.trim(),files:files.map(file=>({name:file.name,type:file.type,blob:file})),created:Date.now()});
+    event.target.reset();status.textContent="Memory saved!";
+    await render();
+  }catch(error){console.error(error);status.textContent="Could not save. Your browser storage may be full.";}
+});
+(async()=>{try{db=await openDB();await render();}catch(error){console.error(error);document.getElementById("status").textContent="This browser does not support local storage for this journal.";}})();
+</script>
+</body>
+</html>

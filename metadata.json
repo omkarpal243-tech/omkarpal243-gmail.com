@@ -1,0 +1,8 @@
+{
+  "name": "Remix Trekxplore45",
+  "description": "Trekxplore45 is your personal travel journal and adventure tracker to document expeditions, store photos and videos, and preserve unforgettable journey memories.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
